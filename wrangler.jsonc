@@ -1,11 +1,10 @@
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
 	"name": "circle",
-	// "compatibility_date": "2025-11-21",
-	// "compatibility_flags": [
-	// 	"nodejs_als"
-	// ],
-
+	"compatibility_date": "2025-11-21",
+	"compatibility_flags": [
+		"nodejs_compat"
+	],
 	"pages_build_output_dir": ".svelte-kit/cloudflare",
 	// "observability": {
 	// 	"enabled": true
