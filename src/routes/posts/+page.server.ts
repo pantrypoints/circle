@@ -1,17 +1,7 @@
 import type { PageServerLoad } from './$types';
 import { db } from '$lib/server/db';
-import { products } from '$lib/server/db/schema';
-import { desc } from 'drizzle-orm';
-
-// export const load: PageServerLoad = async () => {
-//   const allProducts = await db
-//     .select()
-//     .from(products)
-//     .orderBy(desc(products.dateCreated));
-  
-//   return { products: allProducts };
-// };
-
+import { posts, users } from '$lib/server/db/schema';
+import { desc, eq } from 'drizzle-orm';
 
 export const load: PageServerLoad = async ({ url, cookies }) => {
   const page = parseInt(url.searchParams.get('page') || '1');

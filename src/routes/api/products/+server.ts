@@ -8,13 +8,18 @@ export const POST: RequestHandler = async ({ request, cookies }) => {
   if (!userId) {
     return json({ message: 'Unauthorized' }, { status: 401 });
   }
-  
-  const data = await request.json();
-  
-  await db.insert(products).values({
-    ...data,
-    userId: parseInt(userId)
-  });
-  
-  return json({ success: true });
+
+  try {  
+    const data = await request.json();
+    
+    await db.insert(products).values({
+      ...data,
+      userId: parseInt(userId)
+    });
+
+  } catch (error) {
+    console.error('Error creating product:', error);
+    return json({ message: 'Failed to create product' }, { status: 500 });
+  }    
+
 };
