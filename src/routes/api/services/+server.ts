@@ -13,7 +13,7 @@ export const POST: RequestHandler = async ({ request, cookies }) => {
   try {
     const data = await request.json();
     
-    if (!data.name || !data.measure || data.points === undefined) {
+    if (!data.name || !data.measure || data.points === undefined || !data.category) {
       return json({ message: 'Missing required fields' }, { status: 400 });
     }
     
@@ -21,7 +21,7 @@ export const POST: RequestHandler = async ({ request, cookies }) => {
       name: data.name,
       measure: data.measure,
       points: parseFloat(data.points),
-      category: parseInt(data.category) || 1,
+      category: data.category,
       photo1: data.photo1 || null,
       photo2: data.photo2 || null,
       photo3: data.photo3 || null,
@@ -39,4 +39,3 @@ export const POST: RequestHandler = async ({ request, cookies }) => {
     return json({ message: 'Failed to create service' }, { status: 500 });
   }
 };
-
