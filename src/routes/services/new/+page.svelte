@@ -9,8 +9,8 @@
   let description = $state('');
   let headline = $state('');
   
-  async function createProduct() {
-    await fetch('/api/products', {
+  async function createService() {
+    await fetch('/api/services', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name, measure, points, category, photo1, description, headline })
@@ -21,9 +21,9 @@
 </script>
 
 <div class="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow">
-  <h2 class="text-2xl font-bold mb-6">Create Product</h2>
+  <h2 class="text-2xl font-bold mb-6">Create Service</h2>
   
-  <form onsubmit={(e) => { e.preventDefault(); createProduct(); }}>
+  <form onsubmit={(e) => { e.preventDefault(); createService(); }}>
     <div class="space-y-4">
       <div>
         <label class="block text-sm font-medium mb-1">Name *</label>
@@ -66,8 +66,9 @@
       </div>
       
       <button type="submit" class="w-full bg-blue-600 text-white py-3 rounded font-semibold hover:bg-blue-700">
-        Create Product
+        Create Service
       </button>
     </div>
   </form>
 </div>
+

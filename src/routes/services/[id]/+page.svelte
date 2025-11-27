@@ -3,7 +3,7 @@
   let { data } = $props();
   
   function handlePurchase() {
-    goto(`/transaction/new?type=product&id=${data.product.id}&sellerId=${data.product.userId}`);
+    goto(`/transaction/new?type=service&id=${data.service.id}&sellerId=${data.service.userId}`);
   }
 </script>
 
@@ -11,16 +11,16 @@
   <div class="bg-white rounded-lg shadow overflow-hidden">
     <div class="md:flex">
       <div class="md:w-1/2">
-        {#if data.product.photo1}
-          <img src={data.product.photo1} alt={data.product.name} class="w-full h-96 object-cover" />
+        {#if data.service.photo1}
+          <img src={data.service.photo1} alt={data.service.name} class="w-full h-96 object-cover" />
         {/if}
       </div>
       <div class="md:w-1/2 p-6">
-        <h1 class="text-3xl font-bold mb-2">{data.product.name}</h1>
-        <p class="text-gray-600 mb-4">{data.product.headline}</p>
-        <div class="text-3xl font-bold text-blue-600 mb-4">{data.product.points} pts</div>
-        <p class="text-gray-500 mb-6">per {data.product.measure}</p>
-        <p class="mb-6">{data.product.description}</p>
+        <h1 class="text-3xl font-bold mb-2">{data.service.name}</h1>
+        <p class="text-gray-600 mb-4">{data.service.headline}</p>
+        <div class="text-3xl font-bold text-blue-600 mb-4">{data.service.points} pts</div>
+        <p class="text-gray-500 mb-6">per {data.service.measure}</p>
+        <p class="mb-6">{data.service.description}</p>
         
         <button
           onclick={handlePurchase}
@@ -45,3 +45,4 @@
     </div>
   </div>
 </div>
+

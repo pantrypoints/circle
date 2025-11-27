@@ -87,9 +87,8 @@
 
 <div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-500 to-purple-600 px-4">
   <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md p-8">
-    <img src="/pp.png">
-<!--     <h1 class="text-3xl font-bold text-center mb-2 text-gray-800">Circle Barter</h1>
-    <p class="text-center text-gray-600 mb-6">Community Exchange Platform</p> -->
+    <h1 class="text-3xl font-bold text-center mb-2 text-gray-800">Circle Barter</h1>
+    <p class="text-center text-gray-600 mb-6">Community Exchange Platform</p>
     
     <div class="flex gap-2 mb-6">
       <button
@@ -254,3 +253,4 @@
     </form>
   </div>
 </div>
+

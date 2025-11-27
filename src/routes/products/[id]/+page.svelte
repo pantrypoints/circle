@@ -1,47 +1,124 @@
 <script lang="ts">
-  import { goto } from '$app/navigation';
-  let { data } = $props();
+  import { goto, invalidateAll } from '$app/navigation';
   
-  function handlePurchase() {
-    goto(`/transaction/new?type=product&id=${data.product.id}&sellerId=${data.product.userId}`);
+  let name = $state('');
+  let measure = $state('');
+  let points = $state(0);
+  let category = $state(1);
+  let photo1 = $state('');
+  let description = $state('');
+  let headline = $state('');
+  let loading = $state(false);
+  let error = $state('');
+  
+  async function createProduct() {
+    if (!name || !measure || points <= 0) {
+      error = 'Please fill in all required fields';
+      return;
+    }
+    
+    loading = true;
+    error = '';
+    
+    try {
+      const response = await fetch('/api/products', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          name, 
+          measure, 
+          points, 
+          category, 
+          photo1, 
+          description, 
+          headline 
+        })
+      });
+      
+      if (response.ok) {
+        await invalidateAll();
+        goto('/products');
+      } else {
+        const result = await response.json();
+        error = result.message || 'Failed to create product';
+      }
+    } catch (err) {
+      console.error('Error creating product:', err);
+      error = 'Network error. Please try again.';
+    } finally {
+      loading = false;
+    }
   }
 </script>
 
-<div class="max-w-4xl mx-auto">
-  <div class="bg-white rounded-lg shadow overflow-hidden">
-    <div class="md:flex">
-      <div class="md:w-1/2">
-        {#if data.product.photo1}
-          <img src={data.product.photo1} alt={data.product.name} class="w-full h-96 object-cover" />
-        {/if}
+<div class="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow">
+  <h2 class="text-2xl font-bold mb-6">Create Product</h2>
+  
+  {#if error}
+    <div class="bg-red-100 text-red-700 p-3 rounded mb-4">
+      {error}
+    </div>
+  {/if}
+  
+  <form onsubmit={(e) => { e.preventDefault(); createProduct(); }}>
+    <div class="space-y-4">
+      <div>
+        <label class="block text-sm font-medium mb-1">Name *</label>
+        <input bind:value={name} required class="w-full border rounded px-3 py-2" />
       </div>
-      <div class="md:w-1/2 p-6">
-        <h1 class="text-3xl font-bold mb-2">{data.product.name}</h1>
-        <p class="text-gray-600 mb-4">{data.product.headline}</p>
-        <div class="text-3xl font-bold text-blue-600 mb-4">{data.product.points} pts</div>
-        <p class="text-gray-500 mb-6">per {data.product.measure}</p>
-        <p class="mb-6">{data.product.description}</p>
-        
-        <button
-          onclick={handlePurchase}
-          class="w-full bg-blue-600 text-white py-3 rounded font-semibold hover:bg-blue-700"
-        >
-          Purchase
-        </button>
-        
-        <div class="mt-6 pt-6 border-t">
-          <p class="text-sm text-gray-600">Sold by</p>
-          <button onclick={() => goto(`/shops/${data.seller.id}`)} class="flex items-center gap-3 mt-2 hover:underline">
-            <img src={data.seller.avatar || 'https://api.dicebear.com/7.x/avataaars/svg?seed=seller'} 
-                 alt={data.seller.name} 
-                 class="w-10 h-10 rounded-full" />
-            <div>
-              <p class="font-semibold">{data.seller.name}</p>
-              <p class="text-sm text-gray-500">{data.seller.location || 'No location'}</p>
-            </div>
-          </button>
+      
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm font-medium mb-1">Measure *</label>
+          <input bind:value={measure} required class="w-full border rounded px-3 py-2" placeholder="pcs, kg, etc" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium mb-1">Points *</label>
+          <input bind:value={points} type="number" step="0.01" min="0.01" required class="w-full border rounded px-3 py-2" />
         </div>
       </div>
+      
+      <div>
+        <label class="block text-sm font-medium mb-1">Category *</label>
+        <select bind:value={category} class="w-full border rounded px-3 py-2">
+          <option value={1}>Category 1</option>
+          <option value={2}>Category 2</option>
+          <option value={3}>Category 3</option>
+        </select>
+      </div>
+      
+      <div>
+        <label class="block text-sm font-medium mb-1">Photo URL</label>
+        <input bind:value={photo1} type="url" class="w-full border rounded px-3 py-2" placeholder="https://..." />
+      </div>
+      
+      <div>
+        <label class="block text-sm font-medium mb-1">Headline</label>
+        <input bind:value={headline} class="w-full border rounded px-3 py-2" placeholder="Short catchy description" />
+      </div>
+      
+      <div>
+        <label class="block text-sm font-medium mb-1">Description</label>
+        <textarea bind:value={description} class="w-full border rounded px-3 py-2" rows="4" placeholder="Detailed product description"></textarea>
+      </div>
+      
+      <div class="flex gap-3">
+        <button 
+          type="submit" 
+          disabled={loading}
+          class="flex-1 bg-blue-600 text-white py-3 rounded font-semibold hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed"
+        >
+          {loading ? 'Creating...' : 'Create Product'}
+        </button>
+        <button 
+          type="button"
+          onclick={() => goto('/products')}
+          class="px-6 py-3 border rounded font-semibold hover:bg-gray-50"
+        >
+          Cancel
+        </button>
+      </div>
     </div>
-  </div>
+  </form>
 </div>
+
