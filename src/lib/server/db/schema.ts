@@ -1,9 +1,3 @@
-// export const user = sqliteTable('user', {
-// 	id: text('id').primaryKey().$defaultFn(() => crypto.randomUUID()),
-// 	age: integer('age')
-// });
-
-
 import { sqliteTable, text, integer, real } from 'drizzle-orm/sqlite-core';
 import { sql } from 'drizzle-orm';
 
@@ -36,7 +30,7 @@ export const products = sqliteTable('products', {
   name: text('name').notNull(),
   measure: text('measure').notNull(),
   points: real('points').notNull(),
-  category: integer('category').notNull(),
+  category: text('category').notNull(), // HS Code
   photo1: text('photo1'),
   photo2: text('photo2'),
   photo3: text('photo3'),
@@ -55,7 +49,7 @@ export const services = sqliteTable('services', {
   name: text('name').notNull(),
   measure: text('measure').notNull(),
   points: real('points').notNull(),
-  category: integer('category').notNull(),
+  category: text('category').notNull(), // MCC Code
   photo1: text('photo1'),
   photo2: text('photo2'),
   photo3: text('photo3'),
@@ -78,6 +72,7 @@ export const transactions = sqliteTable('transactions', {
   photo: text('photo'),
   notes: text('notes'),
   kind: text('kind').notNull(), // 'debt' or 'credit'
+  category: text('category').notNull(), // HS Code or MCC Code
   status: text('status').notNull().default('pending'), // 'pending', 'accepted', 'cancelled', 'transferred'
   giverId: integer('giver_id').notNull().references(() => users.id), // seller
   getterId: integer('getter_id').notNull().references(() => users.id), // buyer
@@ -88,5 +83,3 @@ export const transactions = sqliteTable('transactions', {
   dateCreated: text('date_created').default(sql`(CURRENT_TIMESTAMP)`),
   dateModified: text('date_modified').default(sql`(CURRENT_TIMESTAMP)`)
 });
-
-

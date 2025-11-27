@@ -1,27 +1,14 @@
 {
-	"$schema": "node_modules/wrangler/config-schema.json",
-	"name": "circle",
-	"compatibility_date": "2025-11-21",
-	"compatibility_flags": [
-		"nodejs_compat"
-	],
-	"pages_build_output_dir": ".svelte-kit/cloudflare",
-	// "observability": {
-	// 	"enabled": true
-	// },
-	"vars": { "DATABASE_URL": "libsql://circle-pantrypoints.aws-ap-northeast-1.turso.io" }
-	/**
-	 * Note: Use secrets to store sensitive data.
-	 * https://developers.cloudflare.com/workers/configuration/secrets/
-	 */
-	/**
-	 * Static Assets
-	 * https://developers.cloudflare.com/workers/static-assets/binding/
-	 */
-	// "assets": { "directory": "./public/", "binding": "ASSETS" }
-	/**
-	 * Service Bindings (communicate between multiple Workers)
-	 * https://developers.cloudflare.com/workers/wrangler/configuration/#service-bindings
-	 */
-	// "services": [{ "binding": "MY_SERVICE", "service": "my-service" }]
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "circle",
+  "compatibility_date": "2025-11-21",
+  "compatibility_flags": [
+    "nodejs_als",
+    "nodejs_compat"  // Add this!
+  ],
+  "pages_build_output_dir": ".svelte-kit/cloudflare",
+  "observability": {
+    "enabled": true
+  },
+  "vars": { "DATABASE_URL": "libsql://circle-pantrypoints.aws-ap-northeast-1.turso.io" }
 }

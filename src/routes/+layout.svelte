@@ -15,4 +15,3 @@
     <FAB user={data.user} />
   {/if}
 </div>
-
