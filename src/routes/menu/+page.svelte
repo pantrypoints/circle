@@ -9,8 +9,6 @@
 
   const menuItems = [
     { name: 'Posts', route: '/posts', icon: '📝' },
-    // { name: m.products, route: '/products', icon: '📦' },
-    // { name: m.services, route: '/services', icon: '🛠️' },
     { name: 'Products', route: '/products', icon: '📦' },
     { name: 'Services', route: '/services', icon: '🛠️' },    
     { name: 'Points', route: '/points', icon: '💰' },
@@ -57,3 +55,4 @@
     <span class="group-hover:-translate-x-1 transition-transform">←</span> Back to Home
   </button>
 </div>
+
