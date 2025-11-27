@@ -9,7 +9,7 @@
 	// "observability": {
 	// 	"enabled": true
 	// },
-	"vars": { "DATABASE_URL": "libsql://circle-app-superphysics.aws-ap-northeast-1.turso.io" }
+	"vars": { "DATABASE_URL": "libsql://circle-pantrypoints.aws-ap-northeast-1.turso.io" }
 	/**
 	 * Note: Use secrets to store sensitive data.
 	 * https://developers.cloudflare.com/workers/configuration/secrets/
