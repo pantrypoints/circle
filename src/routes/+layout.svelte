@@ -11,7 +11,9 @@
     {@render children()}
   </main>
   
+  <FAB user={data.user} />
+  
   {#if data.user && $page.route.id !== '/menu'}
-    <FAB user={data.user} />
+    
   {/if}
 </div>
